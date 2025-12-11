@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <title>Popüler Filmler - TMDB API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #1e88e5;
+            text-align: center;
+            border-bottom: 2px solid #1e88e5;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .movie-list {
+            list-style: none;
+            padding: 0;
+        }
+        .movie-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+            background-color: #fafafa;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .movie-item:last-child {
+            border-bottom: none;
+        }
+        .movie-item:hover {
+            background-color: #e3f2fd;
+        }
+        .title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+        .details {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+        .score {
+            font-weight: bold;
+            color: #e91e63;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎥 Popüler Filmler Listesi</h1>
+        
+        <ul class="movie-list">
+            {# movies değişkeni, Flask'tan gönderilen film listesini tutar #}
+            {% for movie in movies %}
+                <li class="movie-item">
+                    <div class="title">{{ loop.index }}. {{ movie.title }}</div>
+                    <div class="details">
+                        Çıkış Tarihi: {{ movie.release_date }} | 
+                        IMDb Puanı: <span class="score">{{ movie.vote_average }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        
+        {% if not movies %}
+            <p style="text-align: center; color: red;">Film verileri yüklenemedi. API anahtarını kontrol edin.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
